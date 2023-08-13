@@ -95,6 +95,7 @@ function Chat() {
       setTextValue();
     }
   };
+  // reciving msg 
   useEffect(() => {
     socket.on("recive", (data) => {
       console.log('recived',data)
