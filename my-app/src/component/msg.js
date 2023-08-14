@@ -1,4 +1,4 @@
-import React from "react";
+/* import React from "react";
 
 export default function msg(props) {
   const leftText = {
@@ -56,4 +56,4 @@ export default function msg(props) {
       </div>
     );
   }
-}
+}*/

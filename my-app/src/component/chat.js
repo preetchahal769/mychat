@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+/*import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import Msg from "./msg.js";
 import "../css/scrollbar.css";
@@ -197,3 +197,4 @@ function Chat() {
 }
 
 export default Chat;
+*/
