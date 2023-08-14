@@ -1,0 +1,20 @@
+{
+  "name": "mychat",
+  "version": "1.0.0",
+  "description": "This is an basic chat app using socket.io and react js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "preet chahal",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongodb": "^5.7.0",
+    "nodemon": "^2.0.22",
+    "socket.io": "^4.7.1",
+    "socket.io-client": "^4.7.1",
+    "web-audio-api": "^0.2.2"
+  }
+}
