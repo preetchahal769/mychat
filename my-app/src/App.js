@@ -1,16 +1,37 @@
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 
+import './App.scss';
 
-import Chat from'./component/chat.js'
+import Login from './pages/Login/Login';
+import Rooms from './pages/Rooms/Rooms';
 
+// using createBrowserRouter() to set routing path
 
-// import About from'./component/about.jsx'
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Rooms />
+  },
+  {
+    path: '/login',
+    element: <Login />
+  },
+  {
+    path: 'rooms',
+    element: <Rooms />
+  }
+])
+
+// using RouterProvider to provide routing feature
+
 function App() {
- 
   return (
-    <>
-   <Chat/>
-  {/* <About/> */}
-    </>
+    <div className="app">
+      <RouterProvider router={router} />
+    </div>
   );
 }
 
