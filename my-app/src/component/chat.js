@@ -27,6 +27,7 @@ function Chat() {
       ReactDOM.findDOMNode(element).value = "";
     }
   };
+  // stylesheet variables
   const chatbox = {
     height: "70vh",
     width: "60%",
@@ -62,6 +63,7 @@ function Chat() {
     room = storedUserData.roomName;
     // console.log(user);
   }
+  // function to send msg 
   const sendMessage = (e) => {
     if (!textValue) {
       e.preventDefault();
