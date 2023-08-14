@@ -1,4 +1,4 @@
-import React from "react";
+/*import React from "react";
 import io from "socket.io-client";
 import Chat from "./chat.js";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -67,4 +67,4 @@ export default function login() {
       </Router>
     </>
   );
-}
+}*/
