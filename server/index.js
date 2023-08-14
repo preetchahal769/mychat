@@ -22,36 +22,32 @@ let mainData = {};
 io.on("connection", (socket) => {
   // console.log(`User Connected : ${socket.id}`);
   socket.on("user-joined", (data) => {
-    users.set(data.username, socket.id);
-    console.log(`User ${socket.id} (${data.username}) joined`);
+    users.set(data.username, data.roomName);
     
+    socket.join(data.roomName);
     mainData = {
       position: "center",
       username: data.username,
       msg: "joined",
     };
-    
+
     // io.to(room).emit("recive", mainData);
-    socket.broadcast.emit("recive", mainData);
+    socket.to(data.roomName).emit("recive", mainData);
   });
   socket.on("send_message", (data) => {
-    const recipientSocketId = users.get(data.room);
-    
+    const roomName = users.get(data.username);
+    socket.join(roomName);
     mainData = {
       position: "recived",
       
       username: data.username,
       msg: data.message,
     };
-    // if (recipientSocketId) {
-      console.log(recipientSocketId)
-      // Emit the private message to the recipient's socket
-      io.to(recipientSocketId).emit('recive', mainData);
-    // }
-    // socket.join(room)
-  //  console.log(users)
-  //   socket.broadcast.emit("recive", mainData);
-    // io.to(room).emit("recive", mainData);
+    if (roomName) {
+      console.log(users);
+    // Emit the private message to the recipient's socket
+    socket.to(roomName).emit("recive", mainData);
+    }
   });
 });
 server.listen(3005, () => {
