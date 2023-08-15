@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
+
+$primaryfont: 'Inter', sans-serif;
+
 body{
     margin: 0;
     padding: 0;
@@ -7,7 +11,7 @@ body{
         height: 100vh;
         background-color: rgb(245, 255, 255);
         color: black;
-        font-family: 'system-ui';
+        font-family: $primaryfont;
     }
 }
 
