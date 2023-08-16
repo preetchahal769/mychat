@@ -6,6 +6,7 @@ import {
 import './App.scss';
 
 import Login from './pages/Login/Login';
+import Signup from './pages/Signup/Signup';
 import Rooms from './pages/Rooms/Rooms';
 
 // using createBrowserRouter() to set routing path
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Rooms />
+  },
+  {
+    path: '/signup',
+    element: <Signup />
   },
   {
     path: '/login',

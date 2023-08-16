@@ -12,9 +12,7 @@ const Login = () => {
         {/* dividing login box into two halves - left and right*/}
         
         <div className="boxLeft">
-          <div className="appLogo">
-            <img src={applogo} alt=''></img>
-          </div>
+          
           <div className='welcomeText'>
             Where Conversations Come to Life !
             <div className="note">
@@ -26,6 +24,9 @@ const Login = () => {
         {/*--------------------------------------------------------*/}
 
         <div className="boxRight">
+          <div className="appLogo">
+            <img src={applogo} alt=''></img>
+          </div>
           <div className="loginHeading">
             Login to My-Chat
           </div>
@@ -42,7 +43,7 @@ const Login = () => {
           </div>
           
           <div className="loginFoot">
-            New here ? <Link>Signup</Link> now !
+            New here ? <Link to='/signup'>Signup</Link> now !
           </div>
         </div>
 
