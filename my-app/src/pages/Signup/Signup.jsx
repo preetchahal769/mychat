@@ -6,16 +6,15 @@ import "./Signup.scss";
 import applogo from "../../assets/icons/mychat.png";
 
 const Login = () => {
-//    Varible to store the data user iput feild data 
+  //    Varible to store the data user iput feild data
   const [data, setData] = useState({
     Name: "",
     userName: "",
     email: "",
     password: "",
-    confirmPass: ""
-    
+    confirmPass: "",
   });
-//   Function to handle change and store feild data to data variable
+  //   Function to handle change and store feild data to data variable
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData((prevObject) => ({
@@ -23,10 +22,16 @@ const Login = () => {
       [name]: value,
     }));
   };
-// function to handle the submit event when user click on submit button;
-const handleSubmit = async (e) => {
+  // function to handle the submit event when user click on submit button;
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!data.Name || !data.userName || !data.email || !data.password || !data.confirmPass) {
+    if (
+      !data.Name ||
+      !data.userName ||
+      !data.email ||
+      !data.password ||
+      !data.confirmPass
+    ) {
       alert("value should not be empty");
     } else if (data.Name.length <= 3 || data.Name.length >= 20) {
       alert("name max char is 20 and min char is 3");
@@ -36,20 +41,28 @@ const handleSubmit = async (e) => {
       alert("pass max char is 60 and min char is 5");
     } else if (data.password !== data.confirmPass) {
       alert("Password and Confirm passwod shoul be same");
-      console.log(`pass : ${data.password} confirmPass : ${data.confirmPass} compare : ${data.password === data.confirmPass}`)
+      console.log(
+        `pass : ${data.password} confirmPass : ${data.confirmPass} compare : ${
+          data.password === data.confirmPass
+        }`
+      );
     } else {
       try {
+        // request to the server
         console.log("data in name ", data.Name);
-        const response = await axios.post("http://localhost:3005/storeUser", data);
-
+        const response = await axios.post(
+          "http://localhost:3005/storeUser",
+          data
+        );
+        // request to the server
         alert(response.data.message);
       } catch (error) {
-        alert( error);
+        alert(error);
       }
     }
     // Perform any additional validations or processing here
     console.log("Submitted object:", data);
-  };  
+  };
   return (
     <div className="signupContainer">
       <div className="signupBox" id="sgbx">
@@ -75,7 +88,13 @@ const handleSubmit = async (e) => {
             {/* actual login form begins here */}
 
             <form>
-              <input type="text" name="Name" placeholder="Enter your name" onChange={handleChange} required></input>
+              <input
+                type="text"
+                name="Name"
+                placeholder="Enter your name"
+                onChange={handleChange}
+                required
+              ></input>
               <input
                 type="text"
                 name="userName"
@@ -104,7 +123,9 @@ const handleSubmit = async (e) => {
                 onChange={handleChange}
                 required
               ></input>
-              <button type="submit" onClick={handleSubmit}>Signup</button>
+              <button type="submit" onClick={handleSubmit}>
+                Signup
+              </button>
             </form>
           </div>
 
