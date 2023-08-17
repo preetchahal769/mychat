@@ -72,14 +72,14 @@
                         width: 300px;
                         height: 40px;
                         border-radius: 20px;
-                        font-size: 16px;
+                        font-size: 14px;
                         outline: none;
                         border: 1px solid gray;
                         padding: 0 20px;
                     }
 
                     input:focus {
-                        border: 1px solid black;
+                        border: 1px solid white;
                     }
 
                     button {
@@ -90,11 +90,12 @@
                         font-weight: bolder;
                         border: none;
                         padding: 0 20px;
-                        background-color: #3eeb5b;
+                        color: white;
+                        background-color: #008fff;
                     }
 
                     button:hover {
-                        background-color: #27ed48;
+                        background-color: #00599d;
                     }
                 }
             }
@@ -104,6 +105,7 @@
 
                 a {
                     text-decoration: none;
+                    color: #008fff;
                 }
             }
         }
@@ -137,6 +139,7 @@
     #lgbx{
 
         .boxLeft{
+            display: none;
             .welcomeText{
                 width: 50%;
                 font-size: 20px;
@@ -144,7 +147,6 @@
         }
 
         .boxRight{
-
             .appLogo{
                 width: 35px;
                 height: 35px;
