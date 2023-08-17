@@ -29,10 +29,11 @@ const handleSubmit = async (e) => {
   }  else if (data.password.length <= 5 || data.password.length >= 60) {
     alert("pass max char is 60 and min char is 5");
   }  else {
-    try {
+    try { 
+      // request to the server 
       console.log("data in name ", data.Name);
       const response = await axios.post("http://localhost:3005/confirmUser", data);
-
+// repose from the server 
       alert(JSON.stringify(response.data.message));
     } catch (error) {
       alert( error);
