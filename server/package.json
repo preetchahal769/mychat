@@ -3,15 +3,21 @@
   "version": "1.0.0",
   "description": "This is an basic chat app using socket.io and react js",
   "main": "index.js",
+  "type": "module",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "preet chahal",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "mongodb": "^5.7.0",
+    "mongoose": "^7.4.3",
     "nodemon": "^2.0.22",
     "socket.io": "^4.7.1",
     "socket.io-client": "^4.7.1",

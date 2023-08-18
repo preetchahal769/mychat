@@ -61,6 +61,10 @@
             }
 
             .inputBox {
+                background-color: rgb(15, 15, 15);
+                padding: 20px;
+                border-radius: 10px;
+                
                 form {
                     display: flex;
                     flex-direction: column;
@@ -71,7 +75,7 @@
                     input {
                         width: 300px;
                         height: 40px;
-                        border-radius: 20px;
+                        border-radius: 10px;
                         font-size: 14px;
                         outline: none;
                         border: 1px solid gray;
@@ -85,7 +89,7 @@
                     button {
                         width: 300px;
                         height: 40px;
-                        border-radius: 20px;
+                        border-radius: 10px;
                         font-size: 16px;
                         font-weight: bolder;
                         border: none;
