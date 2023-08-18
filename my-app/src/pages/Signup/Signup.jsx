@@ -1,71 +1,51 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Signup.scss";
 
 import applogo from "../../assets/icons/mychat.png";
 
-const Login = () => {
-  //    Varible to store the data user iput feild data
-  const [data, setData] = useState({
-    Name: "",
-    userName: "",
-    email: "",
-    password: "",
-    confirmPass: "",
-  });
-  //   Function to handle change and store feild data to data variable
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((prevObject) => ({
-      ...prevObject,
-      [name]: value,
-    }));
-  };
-  // function to handle the submit event when user click on submit button;
+const Signup = () => {
+
+  // state to set changes made in form field values as object
+
+  const [inputs, setInputs] = useState({
+    name: " ",
+    username: " ",
+    email: " ",
+    password: " ",
+    cnfpassword: " ",
+  })
+
+  // a function to record changes in the form field values
+
+  const handleChange = e => {
+    setInputs(prev => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
+  const navigate = useNavigate();
+
+  // a function to handle submission of form data
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (
-      !data.Name ||
-      !data.userName ||
-      !data.email ||
-      !data.password ||
-      !data.confirmPass
-    ) {
-      alert("value should not be empty");
-    } else if (data.Name.length <= 3 || data.Name.length >= 20) {
-      alert("name max char is 20 and min char is 3");
-    } else if (data.email.length <= 10 || data.email.length >= 40) {
-      alert("gmail max char is 40 and min char is 10");
-    } else if (data.password.length <= 5 || data.password.length >= 60) {
-      alert("pass max char is 60 and min char is 5");
-    } else if (data.password !== data.confirmPass) {
-      alert("Password and Confirm passwod shoul be same");
-      console.log(
-        `pass : ${data.password} confirmPass : ${data.confirmPass} compare : ${
-          data.password === data.confirmPass
-        }`
-      );
-    } else {
-      try {
-        // request to the server
-        console.log("data in name ", data.Name);
-        const response = await axios.post(
-          "http://localhost:3005/storeUser",
-          data
-        );
-        // request to the server
-        alert(response.data.message);
-      } catch (error) {
-        alert(error);
-      }
+    e.preventDefault();  // to prevent default load
+
+    try {
+
+      // sending user input to 'http://localhost:8800/server/auth/signup' (through proxy set in package.json)
+
+      await axios.post("/auth/signup", inputs);
+      navigate('/login');
     }
-    // Perform any additional validations or processing here
-    console.log("Submitted object:", data);
-  };
+    catch (err) {
+      console.log(err.response);
+    }
+  }
+
   return (
     <div className="signupContainer">
       <div className="signupBox" id="sgbx">
+
         {/* dividing signup box into two halves - left and right*/}
 
         <div className="boxLeft">
@@ -85,19 +65,20 @@ const Login = () => {
           </div>
           <div className="signupHeading">Signup to iChat</div>
           <div className="inputBox">
+
             {/* actual login form begins here */}
 
             <form>
               <input
                 type="text"
-                name="Name"
+                name="name"
                 placeholder="Enter your name"
                 onChange={handleChange}
                 required
               ></input>
               <input
                 type="text"
-                name="userName"
+                name="username"
                 placeholder="Enter a username"
                 onChange={handleChange}
                 required
@@ -118,7 +99,7 @@ const Login = () => {
               ></input>
               <input
                 type="password"
-                name="confirmPass"
+                name="cnfpassword"
                 placeholder="Enter your password again"
                 onChange={handleChange}
                 required
@@ -138,4 +119,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
