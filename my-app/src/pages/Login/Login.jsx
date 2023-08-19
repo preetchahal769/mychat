@@ -32,7 +32,8 @@ const Login = () => {
       await axios.post("/auth/login", inputs);
       navigate("/rooms");
     } catch (err) {
-      console.log(err.response);
+      let data = err.response.data;
+      console.log(data);
     }
   };
   return (

@@ -35,10 +35,11 @@ const Signup = () => {
       // sending user input to 'http://localhost:8800/server/auth/signup' (through proxy set in package.json)
 
       await axios.post("/auth/signup", inputs);
-      navigate('/login');
+      navigate("/login");
     }
     catch (err) {
-      console.log(err.response);
+      let data = err.response.data;
+      console.log(data);
     }
   }
 
