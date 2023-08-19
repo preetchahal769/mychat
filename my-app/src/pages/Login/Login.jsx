@@ -1,15 +1,43 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./Login.scss";
 
 import applogo from "../../assets/icons/mychat.png";
 
 const Login = () => {
-  
+  // state to set changes made in form field values as object
+
+  const [inputs, setInputs] = useState({
+    username: " ",
+    password: " ",
+  });
+
+  // a function to record changes in the form field values
+
+  const handleChange = (e) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const navigate = useNavigate();
+
+  // a function to handle submission of form data
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // to prevent default load
+
+    try {
+      // sending user input to 'http://localhost:8800/server/auth/signup' (through proxy set in package.json)
+
+      await axios.post("/auth/login", inputs);
+      navigate("/rooms");
+    } catch (err) {
+      console.log(err.response);
+    }
+  };
   return (
     <div className="loginContainer">
       <div className="loginBox" id="lgbx">
-
         {/* dividing login box into two halves - left and right*/}
 
         <div className="boxLeft">
@@ -29,18 +57,24 @@ const Login = () => {
           </div>
           <div className="loginHeading">Login to iChat</div>
           <div className="inputBox">
-
             {/* actual login form begins here */}
 
             <form>
-              <input type="text" name="userName" placeholder="Enter username" required></input>
+              <input
+                type="text"
+                name="username"
+                placeholder="Enter username"
+                onChange={handleChange}
+                required
+              ></input>
               <input
                 type="password"
                 name="password"
                 placeholder="Enter password"
+                onChange={handleChange}
                 required
               ></input>
-              <button type="submit">Login</button>
+              <button onClick={handleSubmit} type="submit">Login</button>
             </form>
           </div>
 
