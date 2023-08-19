@@ -10,7 +10,7 @@ dotenv.config();
 // MongoDB setup
 
 const dbURL= process.env.MONGO_URL; // url processing from .env
-
+  
 mongoose.connect(dbURL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
