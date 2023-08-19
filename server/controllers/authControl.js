@@ -1,99 +1,134 @@
 // setting up authentication protocols for signup and login
 
 import userAuth from "../models/userAuthSchema.js";
-import brcypt from 'bcryptjs';
+import brcypt from "bcryptjs";
 
-// use of 'async' before every req and 'await' before every query to database is necessary 
+// use of 'async' before every req and 'await' before every query to database is necessary
 
 // defining authentication protocol for new user signup
 
 export const signup = async (req, res) => {
+  try {
+    // getting input details from signup form (Signup.jsx)
 
-    try {
-        // getting input details from signup form (Signup.jsx)
+    const { name, username, email, password, cnfpassword } = req.body;
 
-        const { name, username, email, password, cnfpassword } = req.body;
+    // authorizing user details
 
-        // authorizing user details
+    if (name != "") {
+      if (username != "") {
+        // checking if username already exists or not
 
-        if((name) != '')
-        {
-            if((username) != '')
-            {
-                // checking if username already exists or not 
+        const unameExists = await userAuth.findOne({ username });
 
-                const unameExists = await userAuth.findOne({username});
-                
-                if(unameExists){
-                    return res.status(409).json("Username already exists !")
-                }else{
-                    if((email) != '')
-                    {
-                        // checking if email already exists or not
+        if (unameExists) {
+          return res.status(409).json("Username already exists !");
+        } else {
+          if (email != "") {
+            // checking if email already exists or not
 
-                        const emailExists = await userAuth.findOne({email});
-                        
-                        if(emailExists){
-                            return res.status(409).json("Email already exists !");
-                        }else{
-                            if((password) != '')
-                            {
-                                if((cnfpassword) != '')
-                                {
-                                    // matching passwords
+            const emailExists = await userAuth.findOne({ email });
 
-                                    if(cnfpassword == password){
+            if (emailExists) {
+              return res.status(409).json("Email already exists !");
+            } else {
+              if (password != "") {
+                if (cnfpassword != "") {
+                  // matching passwords
 
-                                        // Hashing the password using bcryptjs with a salt factor of 10
+                  if (cnfpassword == password) {
+                    // Hashing the password using bcryptjs with a salt factor of 10
 
-                                        const salt = brcypt.genSaltSync(10);
-                                        const hashedPassword = brcypt.hashSync(cnfpassword, salt);
+                    const salt = brcypt.genSaltSync(10);
+                    const hashedPassword = brcypt.hashSync(cnfpassword, salt);
 
-                                        // createing a new user document
+                    // createing a new user document
 
-                                        const newUser = new userAuth({
-                                            name,
-                                            username,
-                                            email,
-                                            password: hashedPassword,
-                                        });
+                    const newUser = new userAuth({
+                      name,
+                      username,
+                      email,
+                      password: hashedPassword,
+                    });
 
-                                        // saving the newUser to our predefined 'users' collection
+                    // saving the newUser to our predefined 'users' collection
 
-                                        newUser.save();
+                    newUser.save();
 
-                                        res.status(201).json({ message: "User registered successfully" });
-
-                                    }else{
-                                        return res.status(409).json("Passwords do not match !");
-                                    }
-                                }else{
-                                    return res.status(409).json("Confirm password can't be empty !")
-                                }
-                            }else{
-                                return res.status(409).json("Password can't be empty !"); 
-                            }
-                        }
-                    }else{
-                        return res.status(409).json("Email can't be empty !")
-                    }
+                    res
+                      .status(201)
+                      .json({ message: "User registered successfully" });
+                  } else {
+                    return res.status(409).json("Passwords do not match !");
+                  }
+                } else {
+                  return res
+                    .status(409)
+                    .json("Confirm password can't be empty !");
                 }
-            }else{
-                return res.status(409).json("Username can't be empty !");
+              } else {
+                return res.status(409).json("Password can't be empty !");
+              }
             }
-        }else{
-            return res.status(409).json("Name can't be empty !");
+          } else {
+            return res.status(409).json("Email can't be empty !");
+          }
         }
-    } catch (error) {
-        // returning error details if something goes wrong while signup
-
-        console.error("Error while signing up:", error);
-        res.status(500).json({ message: "An error occurred while signing up" });
+      } else {
+        return res.status(409).json("Username can't be empty !");
+      }
+    } else {
+      return res.status(409).json("Name can't be empty !");
     }
-}
+  } catch (error) {
+    // returning error details if something goes wrong while signup
+
+    console.error("Error while signing up:", error);
+    res.status(500).json({ message: "An error occurred while signing up" });
+  }
+};
 
 // defining authentication protocol for user login
 
-export const login = (req, res) => {
-    console.log('auth login');
-}
+export const login = async (req, res) => {
+  // getting input details from signup form (Signup.jsx)
+
+  try {
+    const { username, password } = req.body;
+    // authorizing user details
+    if (username != "") {
+      // checking if username already exists or not
+
+      const unameExists = await userAuth.findOne({ username });
+
+      if (unameExists) {
+        if (password != "") {
+          // if user name  exist compare the pasword with hased password
+          const hashedPassword = unameExists.password;
+          const result = await brcypt.compare(password, hashedPassword);
+
+          if (result) {
+            // if password matched Response a sucess message to user
+            res.status(201).json({ message: "User authrization completed" });
+          } else {
+            // if password  doesn't matched Response a failed  message to user
+            return res.status(409).json("Incorrect  Password !");
+          }
+        } else {
+          // if password vaule is empty
+          return res.status(409).json("Password can't be empty");
+        }
+      } else {
+        //  if username doesn't exists response a failed message to user
+        return res.status(409).json("Username doesn't exist !");
+      }
+    } else {
+      // if user value is empty
+      return res.status(409).json("Username can't be empty !");
+    }
+  } catch (error) {
+    // returning error details if something goes wrong while signup
+    console.error("Error while login:", error);
+    res.status(500).json({ message: "An error occurred while signing up" });
+  }
+};
