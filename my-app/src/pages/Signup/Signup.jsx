@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Signup.scss";
 
 import applogo from "../../assets/icons/mychat.png";
+import Toasts from "../../components/Toasts/Toasts";
 
 const Signup = () => {
 
@@ -27,6 +28,9 @@ const Signup = () => {
 
   // a function to handle submission of form data
 
+  const [message, setMessage] = useState(null);
+  const [error, setError] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();  // to prevent default load
 
@@ -39,12 +43,19 @@ const Signup = () => {
     }
     catch (err) {
       let data = err.response.data;
-      console.log(data);
+      setMessage(data)
+      setError(true)
+      setTimeout(()=>{
+        setError(false);
+      }, 2000);
     }
   }
 
   return (
     <div className="signupContainer">
+      
+      <Toasts message={message} error={error} />
+      
       <div className="signupBox" id="sgbx">
 
         {/* dividing signup box into two halves - left and right*/}
