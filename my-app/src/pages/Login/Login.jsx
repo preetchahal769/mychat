@@ -4,6 +4,7 @@ import axios from "axios";
 import "./Login.scss";
 
 import applogo from "../../assets/icons/mychat.png";
+import Toasts from "../../components/Toasts/Toasts";
 
 const Login = () => {
   // state to set changes made in form field values as object
@@ -23,6 +24,9 @@ const Login = () => {
 
   // a function to handle submission of form data
 
+  const [message, setMessage] = useState(null);
+  const [error, setError] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault(); // to prevent default load
 
@@ -33,11 +37,18 @@ const Login = () => {
       navigate("/rooms");
     } catch (err) {
       let data = err.response.data;
-      console.log(data);
+      setMessage(data)
+      setError(true)
+      setTimeout(()=>{
+        setError(false);
+      }, 2000);
     }
   };
   return (
     <div className="loginContainer">
+
+      <Toasts message={message} error={error} />
+
       <div className="loginBox" id="lgbx">
         {/* dividing login box into two halves - left and right*/}
 
