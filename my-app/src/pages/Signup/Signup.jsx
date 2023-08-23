@@ -53,6 +53,8 @@ const Signup = () => {
 
   return (
     <div className="signupContainer">
+
+      {/* importing toast component and passing message and error as props to it */}
       
       <Toasts message={message} error={error} />
       

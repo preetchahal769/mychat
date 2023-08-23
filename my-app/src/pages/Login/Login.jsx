@@ -47,6 +47,8 @@ const Login = () => {
   return (
     <div className="loginContainer">
 
+      {/* importing toast component and passing message and error as props to it */}
+
       <Toasts message={message} error={error} />
 
       <div className="loginBox" id="lgbx">

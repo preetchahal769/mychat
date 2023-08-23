@@ -1,0 +1,72 @@
+.roomsListContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .heading{
+        font-weight: 600;
+        font-size: 20px;
+    }
+
+    .searchBox{
+        input{
+            height: 40px;
+            width: 100%;
+            background-color: #161616;
+            outline: none;
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 14px;
+            color: white;
+        }
+
+        input:focus{
+            outline: 1px solid whitesmoke;
+        }
+    }
+
+    .roomsList{
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        overflow: scroll;
+        height: 525px;
+    
+        &::-webkit-scrollbar{
+            display: none;
+        }
+    
+        .roomTab{
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: #161616;
+    
+            .profileImg{
+                img{
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 10px;
+                }
+            }
+    
+            .roomDescrip{
+                display: flex;
+                gap: 4px;
+                flex-direction: column;
+    
+                .roomName{
+                    font-size: 13px;
+                    font-weight: 600;
+                }
+    
+                .lastMessage{
+                    font-size: 10px;
+                }
+            }
+        }
+    }
+}
