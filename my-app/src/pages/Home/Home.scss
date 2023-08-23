@@ -1,0 +1,79 @@
+.homeContainer{
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    
+    .homeLeft{
+        width: 80px;
+        height: 100%;
+        padding: 10px;
+        background-color: #161616;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        gap: 10px;
+
+        .ichatLogo{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img{
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        .roomIcons{
+            height: 360px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            .roomIcon{
+                img{
+                    width: 45px;
+                    height: 45px;
+                }
+            }
+        }
+
+        .redirect{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            border-radius: 10px;
+
+            img{
+                width: 30px;
+                height: 30px;
+                border-radius: 8px;
+            }
+        }
+
+        .redirect.active{
+            background-color: #212121;
+
+            #stng{
+                transition: 0.2s all ease;
+                transform: rotate(90deg);
+            }
+        }
+    }
+
+    .homeMiddle{
+        width: 300px;
+        background-color: #2a2a2a;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .homeRight{
+        flex: 75%;
+        padding: 10px;
+    }
+}
