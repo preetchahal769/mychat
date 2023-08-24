@@ -32,21 +32,28 @@ const Login = () => {
 
     try {
       // sending user input to 'http://localhost:8800/server/auth/signup' (through proxy set in package.json)
+      // Send user input to the login endpoint
+      const response = await axios.post("/auth/login", inputs);
 
-      await axios.post("/auth/login", inputs);
+      // Extract the token from the response
+      const token = response.data.token; // Adjust the property name based on your API response
+
+      // Save the token in localStorage
+      localStorage.setItem("token", token);
+
+      // Navigate to the room page
       navigate("/rooms");
     } catch (err) {
       let data = err.response.data;
-      setMessage(data)
-      setError(true)
-      setTimeout(()=>{
+      setMessage(data);
+      setError(true);
+      setTimeout(() => {
         setError(false);
       }, 2000);
     }
   };
   return (
     <div className="loginContainer">
-
       {/* importing toast component and passing message and error as props to it */}
 
       <Toasts message={message} error={error} />
@@ -88,7 +95,9 @@ const Login = () => {
                 onChange={handleChange}
                 required
               ></input>
-              <button onClick={handleSubmit} type="submit">Login</button>
+              <button onClick={handleSubmit} type="submit">
+                Login
+              </button>
             </form>
           </div>
 
