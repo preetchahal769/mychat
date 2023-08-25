@@ -12,11 +12,17 @@ import ChatBox from '../../components/ChatBox/ChatBox';
 import ProfileList from '../../components/ProfileList/ProfileList';
 import SettingsList from '../../components/SettingsList/SettingsList';
 import Settings from '../Settings/Settings';
+import { Navigate } from 'react-router-dom';
 
 const Home = () => {
+
     const [listBox, setListBox] = useState('allrooms');
 
-  return (
+    // Retrieve user information from local storage
+
+    const isCurrentuser = JSON.parse(localStorage.getItem("user"));
+
+  return isCurrentuser ? (
     <div className="homeContainer">
         <div className="homeLeft">
             <div className="ichatLogo">
@@ -55,7 +61,7 @@ const Home = () => {
             }
         </div>
     </div>
-  )
+  ) : <Navigate to='/login' />
 }
 
 export default Home

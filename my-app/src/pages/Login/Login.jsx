@@ -31,18 +31,29 @@ const Login = () => {
     e.preventDefault(); // to prevent default load
 
     try {
-      // sending user input to 'http://localhost:8800/server/auth/signup' (through proxy set in package.json)
-      // Send user input to the login endpoint
-      const response = await axios.post("/auth/login", inputs);
+      // sending user input to 'http://localhost:8800/server' (through proxy set in package.json)
 
-      // Extract the token from the response
-      const token = response.data.token; // Adjust the property name based on your API response
+      await axios.post("/auth/login", inputs)
 
-      // Save the token in localStorage
-      localStorage.setItem("token", token);
+      const res = await axios.get("/auth/verifyToken")
 
-      // Navigate to the room page
-      navigate("/rooms");
+      // storing user information in local storage/session storage
+
+      localStorage.setItem("currentUser", JSON.stringify(res.data));
+
+      // retrieving user information from local storage
+
+      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+      if (currentUser) {
+
+        // if currentUser exists, navigate to the room page
+
+        navigate("/rooms");
+      } else {
+        navigate("/login")
+      }
+
     } catch (err) {
       let data = err.response.data;
       setMessage(data);
@@ -52,6 +63,7 @@ const Login = () => {
       }, 2000);
     }
   };
+
   return (
     <div className="loginContainer">
       {/* importing toast component and passing message and error as props to it */}
