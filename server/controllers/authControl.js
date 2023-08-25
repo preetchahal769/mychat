@@ -9,7 +9,9 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // secretKey for json web token from .env
+
 const secretKey = process.env.TOKEN_KEY;
+const SESSION_ID = "access_token"; // naming access_token
 
 // use of 'async' before every req and 'await' before every query to database is necessary
 
@@ -116,11 +118,11 @@ export const login = async (req, res) => {
       // if username field is empty
       return res.status(409).json("Username can't be empty !");
     } else {
-      // db query to check if given username already exists or not
+      // db query to check if a user with given username already exists or not
 
-      const unameExists = await userAuth.findOne({ username });
+      const userExists = await userAuth.findOne({ username });
 
-      if (unameExists) {
+      if (userExists) {
         // if username already exists
         if (!password.trim()) {
           // if password field is empty
@@ -128,21 +130,42 @@ export const login = async (req, res) => {
         } else {
           // matching given and stored passwords
 
-          const hashedPassword = unameExists.password; // getting stored hash password
+          const hashedPassword = userExists.password; // getting stored hash password
           const result = await brcypt.compare(password, hashedPassword); // comparing given and stored hash passwords
 
           if (result) {
             // if both passwords match
+
             const user = {
-              id: unameExists._id,
-              name: unameExists.username,
-              password: unameExists.password,
-              email: unameExists.email,
+              id: userExists._id,
+              name: userExists.name,
+              username: userExists.username,
+              email: userExists.email,
             };
-            const token = jwt.sign(user, secretKey, { expiresIn: "4m" });
-            res
-              .status(201)
-              .json({ message: "User authorization completed", token: token });
+
+            // creating a jsonwebtoken to identify user and provide authority to user for accessing personalized features
+
+            const token = jwt.sign(user, secretKey, { expiresIn: "1hr" });
+
+            try {
+              // validating the token before setting up cookie
+
+              if (token) {
+                const cookieOptions = {
+                  httpOnly: true,
+                  expires: new Date(Date.now() + 900),
+                  // secure: true, // set this true only when using https
+                }
+
+                // if token is valid, create a cookie with user details stored
+
+                res.cookie(SESSION_ID, token, cookieOptions).status(200).json("Token Generated");
+
+              }
+            } catch (error) {
+              console.error("Error setting cookie:", error);
+            }
+
           } else {
             return res.status(409).json("Incorrect  Password !");
           }
@@ -154,28 +177,26 @@ export const login = async (req, res) => {
   } catch (error) {
     // returning error details if something goes wrong while signup
     console.error("Error while login:", error);
-    res.status(500).json({ message: "An error occurred while signing up" });
   }
 };
-// define authorization code
-export const authorization = async (req, res) => {
+
+// token verification
+
+export const verifyToken = async (req, res) => {
   try {
-    const authHeader = req.header.Authorization;
-    console.log(authHeader);
-    if (!authHeader) {
-      res.status(401).json({ message: "Authorization token is missing" });
-    } else {
-      const token = authHeader.replace("Bearer ", "");
-      jwt.verify(token, secretKey, (err, decoded) => {
-        if (err) {
-          res.status(403).json({ message: "Token authentication failed" });
-        } else {
-          res.status(200).json({ message: "Token authentication successful" });
-          console.log("Decoded token:", decoded);
-          // Perform actions based on the decoded token
-        }
-      });
-    }
+    // accessing token from cookies in local storage
+
+    const token = req.cookies.access_token;
+
+    // verifying token accessed from cookies
+
+    jwt.verify(token, secretKey, (err, decoded) => {
+      if (err) {
+        res.status(403).json("Token authentication failed");
+      } else {
+        res.status(200).json(decoded); // returning decoded token details
+      }
+    });
   } catch (error) {
     console.log(error);
   }

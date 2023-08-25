@@ -8,6 +8,7 @@ import dbConfig from './config/dbConfig.js';  // necessary to import
 // importing routes
 
 import authRoute from './routes/authRoute.js';
+import cookieParser from 'cookie-parser';
 
 // loading data from .env
 
@@ -20,6 +21,7 @@ const app = express();
 // parsing incoming request data - Middleware Plugin
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser());
 app.use(express.json());
 
 // setting up routes
