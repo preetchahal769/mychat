@@ -18,9 +18,9 @@ const Home = () => {
 
     const [listBox, setListBox] = useState('allrooms');
 
-    // Retrieve user information from local storage
+    // retrieve user information from local storage
 
-    const isCurrentuser = JSON.parse(localStorage.getItem("user"));
+    const isCurrentuser = JSON.parse(localStorage.getItem("currentUser"));
 
   return isCurrentuser ? (
     <div className="homeContainer">
@@ -54,7 +54,6 @@ const Home = () => {
         </div>
         <div className="homeRight">
             {
-                
                 listBox === 'settings' ?
                 <Settings /> : 
                 <ChatBox />
