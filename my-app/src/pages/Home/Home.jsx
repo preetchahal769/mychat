@@ -1,66 +1,86 @@
+// importing dependencies
+
 import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import './Home.scss';
 
-import ichat from '../../assets/icons/mychat.png';
+// importing assets
 
+import ichat from '../../assets/icons/mychat.png';
 import allroomsDark from '../../assets/icons/allroomsDark.png';
 import profile from '../../assets/images/i2.png';
 import settingsDark from '../../assets/icons/settingsDark.png';
+
+// importing components
 
 import RoomsList from '../../components/RoomsList/RoomsList';
 import ChatBox from '../../components/ChatBox/ChatBox';
 import ProfileList from '../../components/ProfileList/ProfileList';
 import SettingsList from '../../components/SettingsList/SettingsList';
-import Settings from '../Settings/Settings';
-import { Navigate } from 'react-router-dom';
+import SettingDescripBox from '../../components/SettingDescripBox/SettingDescripBox';
 
 const Home = () => {
 
-    const [listBox, setListBox] = useState('allrooms');
+    const [listBox, setListBox] = useState('allrooms'); // setting state of middle part list box
 
-    // retrieve user information from local storage
+    // retrieving current user data from localstorage
 
-    const isCurrentuser = JSON.parse(localStorage.getItem("currentUser"));
+    const isCurrentuser = JSON.parse(localStorage.getItem('currentUser'));
 
-  return isCurrentuser ? (
-    <div className="homeContainer">
-        <div className="homeLeft">
-            <div className="ichatLogo">
-                <img src={ichat} alt=''></img>
+    return isCurrentuser ? (
+        <div className="homeContainer">
+
+            {/* left side of home page */}
+
+            <div className="homeLeft">
+                <div className="ichatLogo">
+                    <img src={ichat} alt='' />
+                </div>
+                <div className={`redirect ${listBox === 'allrooms' ? 'active' : 'inactive'}`} onClick={() => setListBox('allrooms')}>
+                    <img src={allroomsDark} alt='' id='alrms' />
+                </div>
+                <div className="roomIcons">
+                    Rooms
+                </div>
+                <div className={`redirect ${listBox === 'profile' ? 'active' : 'inactive'}`} onClick={() => setListBox('profile')}>
+                    <img src={profile} alt='' />
+                </div>
+                <div className={`redirect ${listBox === 'settings' ? 'active' : 'inactive'}`} onClick={() => setListBox('settings')}>
+                    <img src={settingsDark} alt='' id='stng' />
+                </div>
             </div>
-            <div className={`redirect ${listBox === 'allrooms' ? 'active' : 'inactive'}`}  onClick={()=>setListBox('allrooms')}>
-                <img src={allroomsDark} alt='' id='alrms'></img>
+
+            {/* middle part of home page */}
+
+            <div className="homeMiddle">
+                <div className="listBox">
+                    
+                    {/* switching list box content based on selected right side option */}
+
+                    {
+                        listBox === 'profile' ? 
+                        <ProfileList listBox='profile' /> :
+                            listBox === 'settings' ? <SettingsList /> :
+                                <RoomsList listBox='rooms' />
+                    }
+
+                </div>
             </div>
-            <div className="roomIcons">
-                Rooms
-            </div>
-            <div className={`redirect ${listBox === 'profile' ? 'active' : 'inactive'}`} onClick={()=>setListBox('profile')}>
-                <img src={profile} alt=''></img>
-            </div>
-            <div className={`redirect ${listBox === 'settings' ? 'active' : 'inactive'}`}  onClick={()=>setListBox('settings')}>
-                <img src={settingsDark} alt='' id='stng'></img>
-            </div>
-        </div>
-        <div className="homeMiddle">
-            <div className="listBox">
+
+            {/* right side of home page */}
+
+            <div className="homeRight">
                 {
-                    listBox === 'profile' ?
-                    <ProfileList listBox='profile' /> :
+                    listBox === 'allrooms' ?
+                      <ChatBox /> :
                     listBox === 'settings' ?
-                    <SettingsList listBox='settings' /> :
-                    <RoomsList listBox='rooms' />
+                        <SettingDescripBox /> :
+                        ''
                 }
             </div>
-        </div>
-        <div className="homeRight">
-            {
-                listBox === 'settings' ?
-                <Settings /> : 
-                <ChatBox />
-            }
-        </div>
-    </div>
-  ) : <Navigate to='/login' />
-}
 
-export default Home
+        </div>
+    ) : <Navigate to='/login' />; 
+};
+
+export default Home;
