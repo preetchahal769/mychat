@@ -1,0 +1,41 @@
+.settingsBoxContainer {
+    .settingContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        .heading {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #161616;
+
+            button {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                outline: none;
+                border: none;
+                border-radius: 10px;
+                background-color: #212121;
+                padding: 8px 20px;
+                color: white;
+                font-weight: 600;
+            }
+
+            button:hover {
+                background-color: #1b1b1b;
+                color: rgb(255, 80, 16);
+                font-weight: 600;
+            }
+        }
+    }
+}

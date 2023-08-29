@@ -8,7 +8,7 @@ import Toasts from "../../components/Toasts/Toasts";
 
 const Signup = () => {
 
-  // state to set changes made in form field values as object
+  // useState to set changes made in form field values as object
 
   const [inputs, setInputs] = useState({
     name: " ",
