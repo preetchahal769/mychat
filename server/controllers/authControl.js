@@ -177,6 +177,7 @@ export const login = async (req, res) => {
   } catch (error) {
     // returning error details if something goes wrong while signup
     console.error("Error while login:", error);
+    res.status(500).json({ message: "An error occurred while login in" });
   }
 };
 
@@ -199,5 +200,15 @@ export const verifyToken = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: "An error occurred while verifiing the token" });
   }
 };
+export const logout = async (req,res)=>{
+  try {
+    res.clearCookie('access_token');
+    res.status(200).json({ message: "Logout sucessfully" });
+  } catch (error) {
+    res.status(500).json({ message: "error accoured while logging out" });
+    
+  }
+}
