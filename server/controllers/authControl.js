@@ -203,12 +203,14 @@ export const verifyToken = async (req, res) => {
     res.status(500).json({ message: "An error occurred while verifiing the token" });
   }
 };
-export const logout = async (req,res)=>{
+
+// logout function
+
+export const logout = async (req, res) => {
   try {
     res.clearCookie('access_token');
     res.status(200).json({ message: "Logout sucessfully" });
   } catch (error) {
     res.status(500).json({ message: "error accoured while logging out" });
-    
   }
 }

@@ -4,27 +4,32 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import './SettingDescripBox.scss'
 import axios from 'axios';
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SettingDescripBox = () => {
+  
   const navigate = useNavigate();
+
   // retrieving updated states of activeOption from settingsReducer
 
   const activeOption = useSelector((state) => state.settings.activeOption);
 
   // function to handle logout 
-  const handleLogOut = async ()=>{
+
+  const handleLogOut = async () => {
     try {
       await axios.get("/auth/logout");
-  // Clear the user information from local storage
-  localStorage.removeItem('currentUser');
-  navigate("/login");
-  
-} catch (error) {
-  console.error(error)
-}
-    
+      
+      // Clear the user information from local storage
+      
+      localStorage.removeItem('currentUser');
+      navigate("/login");
+
+    } catch (error) {
+      console.error(error)
+    }
   }
+  
   return (
     <div className="settingsBoxContainer">
 
@@ -45,7 +50,7 @@ const SettingDescripBox = () => {
             </div>
           </div>
 
-        // setting option description for application theme 
+          // setting option description for application theme 
 
           : activeOption === 'theme' ?
 
@@ -59,7 +64,7 @@ const SettingDescripBox = () => {
               </div>
             </div>
 
-          // setting option description for logout
+            // setting option description for logout
 
             : activeOption === 'logout' ?
 

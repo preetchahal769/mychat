@@ -44,6 +44,8 @@
             border-radius: 10px;
             padding: 10px;
             background-color: #161616;
+            cursor: pointer;
+            border: 1px solid #2a2a2a;
     
             .profileImg{
                 img{
@@ -66,6 +68,21 @@
                 .lastMessage{
                     font-size: 10px;
                 }
+            }
+        }
+
+        .roomTab:hover{
+            background-color: rgba(0, 0, 0);
+            .roomName{
+                color: rgb(255, 80, 16);
+            }
+        }
+
+        .roomTab.active{
+            border: 1px solid whitesmoke;
+            background-color: rgba(0, 0, 0);
+            .roomName{
+                color: rgb(255, 80, 16);
             }
         }
     }
