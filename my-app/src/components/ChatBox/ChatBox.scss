@@ -1,24 +1,122 @@
-.chatBoxContainer{
+.chatBoxContainer {
     display: flex;
     flex-direction: column;
     gap: 20px;
 
-    .chatBoxHeading{
+    .chatBoxHeading {
         display: flex;
         flex-direction: column;
         gap: 2px;
-        .chatRoomName{
+
+        .chatRoomName {
             font-weight: 600;
             font-size: 16px;
         }
-        .chatRoomMembersDetail{
+
+        .chatRoomMembersDetail {
             font-size: 10px;
         }
     }
 
-    .chatBox{
+    .chatBox {
         height: 560px;
-        background-color: #161616 ;
+        background-color: #161616;
         border-radius: 10px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+
+        .messages {
+            width: calc(100% - 20px);
+            height: 85%;
+            overflow: scroll;
+            scroll-behavior: smooth;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            gap: 10px;
+            bottom: 70px;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            .msg {
+                max-width: 65%;
+                width: fit-content;
+                padding: 8px 10px;
+
+                display: flex;
+                align-items: center;
+                gap: 10px;
+
+                img {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                }
+
+                .details {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+
+                    .name {
+                        font-weight: 600;
+                    }
+
+                    .dm {
+                        font-size: 14px;
+                        word-wrap: break-word;
+                        color: rgb(200, 200, 200);
+                    }
+                }
+            }
+        }
+
+        .inputBox {
+            width: calc(100% - 20px);
+            background-color: #2a2a2a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border-radius: 10px;
+            position: absolute;
+            bottom: 10px;
+            padding: 0 5px;
+
+            input {
+                height: 40px;
+                width: 95%;
+                outline: none;
+                border: none;
+                border-radius: 10px;
+                padding: 5px;
+                background-color: #2a2a2a;
+                font-size: 14px;
+                color: white;
+            }
+
+            button {
+                background-color: transparent;
+                outline: none;
+                border: none;
+                padding: 5px;
+                border-radius: 10px;
+
+                img {
+                    width: 25px;
+                    height: 25px;
+                }
+            }
+
+            button:hover {
+                background-color: #161616;
+            }
+        }
     }
 }
