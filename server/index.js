@@ -8,6 +8,7 @@ import dbConfig from './config/dbConfig.js';  // necessary to import
 // importing routes
 
 import authRoute from './routes/authRoute.js';
+import userRoute from './routes/userRoute.js';
 import cookieParser from 'cookie-parser';
 
 // loading data from .env
@@ -27,6 +28,7 @@ app.use(express.json());
 // setting up routes
 
 app.use("/server/auth", authRoute);
+app.use("/server/user", userRoute);
 
 // starting the server
 
