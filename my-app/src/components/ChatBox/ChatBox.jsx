@@ -15,10 +15,6 @@ const ChatBox = () => {
 
   return activeRoom !== null ? (
     <div className="chatBoxContainer">
-      <div className="chatBoxHeading">
-        <div className="chatRoomName">{activeRoom.roomName}</div>
-        <div className="chatRoomMembersDetail">2000 members, 849 active</div>
-      </div>
 
       <div className="chatBox">
         <div className="messages">

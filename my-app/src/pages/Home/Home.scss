@@ -25,18 +25,7 @@
         }
 
         .roomIcons{
-            height: 360px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-
-            .roomIcon{
-                img{
-                    width: 45px;
-                    height: 45px;
-                }
-            }
+            padding: 0;
         }
 
         .redirect{
@@ -47,8 +36,8 @@
             border-radius: 10px;
 
             img{
-                width: 30px;
-                height: 30px;
+                width: 35px;
+                height: 35px;
                 border-radius: 8px;
             }
         }

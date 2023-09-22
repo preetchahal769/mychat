@@ -16,25 +16,21 @@ const RoomsList = () => {
             id: 0,
             profileImg: i1,
             roomName: 'My Chat Team',
-            lastMessage: 'Get done with frontend',
         },
         {
             id: 1,
             profileImg: i2,
             roomName: 'Developers Guild',
-            lastMessage: 'Anyone here knows strapi ?',
         },
         {
             id: 2,
             profileImg: i3,
             roomName: 'Hackers County',
-            lastMessage: 'Anonymous news ...',
         },
         {
             id: 3,
             profileImg: i4,
             roomName: 'Indian Devs',
-            lastMessage: 'What about national data policy ?',
         },
     ];
 
@@ -46,13 +42,12 @@ const RoomsList = () => {
 
     return activeRoom !== null ? (
         <div className="roomsListContainer">
-            <div className="heading">Rooms</div>
 
             {/* Search Bar */}
 
-            <div className="searchBox">
+            {/* <div className="searchBox">
                 <input type='text' placeholder='search rooms'></input>
-            </div>
+            </div> */}
 
             {/* rooms list */}
 
@@ -64,16 +59,15 @@ const RoomsList = () => {
                     <div className={`roomTab ${activeRoom.roomId === index ? 'active' : 'inactive'}`} key={room.id} onClick={() => dispatch(setActiveRoomDetails({
                         roomId: room.id,
                         roomName: room.roomName,
-                        lastMessage: room.lastMessage,
                     }))}>
-                        
+
                         <div className="profileImg">
                             <img src={room.profileImg} alt=''></img>
                         </div>
-                        <div className="roomDescrip">
+                        {/* <div className="roomDescrip">
                             <div className="roomName">{room.roomName}</div>
                             <div className="lastMessage">{room.lastMessage}</div>
-                        </div>
+                        </div> */}
                     </div>
                 ))}
             </div>
@@ -83,13 +77,12 @@ const RoomsList = () => {
         :
 
         <div className="roomsListContainer">
-            <div className="heading">Rooms</div>
 
             {/* Search Bar */}
 
-            <div className="searchBox">
+            {/* <div className="searchBox">
                 <input type='text' placeholder='search rooms'></input>
-            </div>
+            </div> */}
 
             {/* rooms list */}
 
@@ -98,15 +91,14 @@ const RoomsList = () => {
                     <div className='roomTab' key={room.id} onClick={() => dispatch(setActiveRoomDetails({
                         roomId: room.id,
                         roomName: room.roomName,
-                        lastMessage: room.lastMessage,
                     }))}>
                         <div className="profileImg">
                             <img src={room.profileImg} alt=''></img>
                         </div>
-                        <div className="roomDescrip">
+                        {/* <div className="roomDescrip">
                             <div className="roomName">{room.roomName}</div>
                             <div className="lastMessage">{room.lastMessage}</div>
-                        </div>
+                        </div> */}
                     </div>
                 ))}
             </div>
