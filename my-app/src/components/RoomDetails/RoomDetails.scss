@@ -1,0 +1,78 @@
+.roomDetailsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    .chatRoomTitle {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+
+        .chatRoomName {
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        .chatRoomMembersDetail {
+            font-size: 10px;
+        }
+    }
+
+    .chatRoomMembers {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        heading{
+            font-weight: 600;
+        }
+
+        .admin {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .roomMembers {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            height: 385px;
+            overflow: scroll;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+
+        .member {
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-radius: 10px;
+            background-color: #161616;
+
+            img {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+            }
+
+            .memberDetails {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                .memberName {
+                    font-weight: 600;
+                    font-size: 15px;
+                }
+
+                .memberRole {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}
