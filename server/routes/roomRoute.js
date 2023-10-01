@@ -8,8 +8,8 @@ const router = express.Router();
 // directing routes to {create, delet, userlist} of roomControl.js
 
 router.post("/newroom", createRoom);
-router.post("/deletroom", removeRoom);
-router.post("/deletroom", joinRoom);
+router.post("/deleteroom", removeRoom);
+router.post("/deleteroom", joinRoom);
 router.get("/userlist", userList);
 
 

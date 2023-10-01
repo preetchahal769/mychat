@@ -1,9 +1,14 @@
 // setting up  protocols for creating a room and other room realted action
+
 import room from "../models/roomSchema.js";
 import userAuth from "../models/userAuthSchema.js"
+
+// defining a protocol for creating a new room
+
 export const createRoom = async (req, res) => {
   try {
     const { roomName, roomdesp, admin, users } = req.body;
+    
     if (!roomName) {
       // if roomName is empty
       return res.status(409).json("Name can't be empty !");
@@ -45,6 +50,8 @@ export const createRoom = async (req, res) => {
   }
 };
 
+// defining a protocol for deleting a room
+
 export const removeRoom = async (res, req) => {
   try {
     const { roomName, admin } = req.body;
@@ -76,6 +83,8 @@ export const removeRoom = async (res, req) => {
   }
 };
 
+// defining a protocol for getting user's list in a room
+
 export const userList = async (req, res) => {
   try {
     const { roomName, userName } = req.body;
@@ -104,6 +113,8 @@ export const userList = async (req, res) => {
       .json({ message: "An error occurred whilefetching the users list" });
   }
 };
+
+// defining a protocol for letting a user join a room
 
 export const joinRoom = async (req, res) => {
   try {
