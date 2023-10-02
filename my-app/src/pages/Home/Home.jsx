@@ -10,6 +10,7 @@ import ichat from '../../assets/icons/mychat.png';
 // import allroomsDark from '../../assets/icons/allroomsDark.png';
 import profile from '../../assets/images/i2.png';
 import settingsDark from '../../assets/icons/settingsDark.png';
+import addroom from '../../assets/icons/addroomDark.png';
 
 // importing components
 
@@ -19,6 +20,7 @@ import ProfileList from '../../components/ProfileList/ProfileList';
 import SettingsList from '../../components/SettingsList/SettingsList';
 import SettingDescripBox from '../../components/SettingDescripBox/SettingDescripBox';
 import RoomDetails from '../../components/RoomDetails/RoomDetails';
+import CreateRoom from '../../components/CreateRoom/CreateRoom';
 
 const Home = () => {
 
@@ -40,8 +42,11 @@ const Home = () => {
                 {/* <div className={`redirect ${listBox === 'allrooms' ? 'active' : 'inactive'}`} onClick={() => setListBox('allrooms')}>
                     <img src={allroomsDark} alt='' id='alrms' />
                 </div> */}
-                <div className={`roomIcons ${listBox === 'allrooms' ? 'active' : 'inactive'}`}onClick={() => setListBox('allrooms')}>
+                <div className={`roomIcons ${listBox === 'allrooms' ? 'active' : 'inactive'}`} onClick={() => setListBox('allrooms')}>
                     <RoomsList />
+                </div>
+                <div className={`redirect ${listBox === 'createroom' ? 'active' : 'inactive'}`} onClick={() => setListBox('createroom')}>
+                    <img src={addroom} alt='' />
                 </div>
                 <div className={`redirect ${listBox === 'profile' ? 'active' : 'inactive'}`} onClick={() => setListBox('profile')}>
                     <img src={profile} alt='' />
@@ -62,7 +67,8 @@ const Home = () => {
                         listBox === 'profile' ? 
                         <ProfileList listBox='profile' /> :
                             listBox === 'settings' ? <SettingsList /> 
-                            : listBox === 'allrooms' ? <RoomDetails /> : ''
+                            : listBox === 'allrooms' ? <RoomDetails /> 
+                            : listBox === 'createroom' ? <CreateRoom /> :  ''
                     }
 
                 </div>
