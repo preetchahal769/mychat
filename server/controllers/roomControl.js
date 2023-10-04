@@ -6,32 +6,71 @@ import userAuth from "../models/userAuthSchema.js"
 // defining a protocol for creating a new room
 
 export const createRoom = async (req, res) => {
+  console.log('api called')
+  // function to create room document
+  const countDocuments = () => {
+    return new Promise((resolve, reject) => {
+      room.countDocuments({}, (err, count) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(count);
+        }
+      });
+    });
+  };
   try {
-    const { roomName, roomdesp, admin, users } = req.body;
+    const { roomName, roomdesp, username ,message } = req.body;
     
     if (!roomName) {
       // if roomName is empty
+      // console.log("stage1");
       return res.status(409).json("Name can't be empty !");
     } else {
       // db query to check if roomname already exists or not
       const rNameExist = await room.findOne({ roomName });
+      // console.log("stage2" ,rNameExist);
       if (rNameExist) {
         // if Room already exists
+        // console.log("stage3");
         return res.status(409).json("Room already exists !");
       } else {
         if (!roomdesp) {
+          // console.log("stage4");
           // if room description is empty
           return res.status(409).json("Name can't be empty !");
         } else {
-          const adminExist = await userAuth.findOne({ admin });
-          if (!admin || !adminExist) {
+          // console.log("stage5");
+        
+          const adminExist = await userAuth.findOne({username });
+          if (!adminExist) {
+            // cherk that the admin user exist or not
+            // console.log("stage6",admin);
             return res.status(409).json("admin user doesn't exists !");
           } else {
+            console.log("stage7");
+            // count the no of documentin collection to crate a id for room 
+            const count = await room.countDocuments();
+            console.log('count : ',count);
+            // creastea new room id 
+            const userroomId = count +54600
+            const roomId = 7576500 + count + 1 ;
+            const sroomId = roomId.toString();
+            console.log(sroomId)
+            // first user details 
+            const adminUser = {
+              username : username ,
+              userroomId:userroomId,
+              position:"admin"
+            }
+            // new room details 
             const newRoom = new room({
-              roomName,
-              roomdesp,
-              admin,
-              users,
+              roomname : roomName,
+              roomId:sroomId,
+              description : roomdesp,
+              admin : username,
+              users :[adminUser],
+              message
             });
 
             // saving the newroom to the database collection named 'room'
