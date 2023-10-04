@@ -4,12 +4,16 @@ import mongoose from "mongoose";
 
 // schema for creating room
 
-const userAuthSchema = new mongoose.Schema({
+const roomAuthSchema = new mongoose.Schema({
   roomname: {
     type: String,
   },
   description: {
     type: String,
+  },
+  roomID:{
+    type : Number,
+    unique : true,
   },
   admin: {
     type: String,
@@ -17,7 +21,10 @@ const userAuthSchema = new mongoose.Schema({
   users: [
     {
       username: String,
-      roomId: Number,
+      roomId: {
+        type: String,
+        unique: true, // Ensures roomId values are unique
+      },
       position: String,
     },
   ],
@@ -32,6 +39,6 @@ const userAuthSchema = new mongoose.Schema({
 
 // creating a mongoose model/mongodb collection named 'room' to store our rooms details
 
-const room = mongoose.model("rooms", userAuthSchema);
+const room = mongoose.model("rooms", roomAuthSchema);
 
 export default room;
