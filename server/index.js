@@ -9,6 +9,7 @@ import dbConfig from './config/dbConfig.js';  // necessary to import
 
 import authRoute from './routes/authRoute.js';
 import userRoute from './routes/userRoute.js';
+import roomRoute from './routes/roomRoute.js';
 import cookieParser from 'cookie-parser';
 
 // loading data from .env
@@ -29,6 +30,7 @@ app.use(express.json());
 
 app.use("/server/auth", authRoute);
 app.use("/server/user", userRoute);
+app.use("/server/room", roomRoute);
 
 // starting the server
 
