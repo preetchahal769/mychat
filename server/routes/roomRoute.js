@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post("/newroom", createRoom);
 router.post("/deleteroom", removeRoom);
-router.post("/deleteroom", joinRoom);
+// router.post("/joinroom", joinRoom);
 router.get("/userlist", userList);
 
 
