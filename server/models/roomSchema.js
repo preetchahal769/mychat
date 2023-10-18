@@ -12,7 +12,7 @@ const roomAuthSchema = new mongoose.Schema({
     type: String,
   },
   roomID:{
-    type : Number,
+    type : String,
     unique : true,
   },
   admin: {
@@ -21,7 +21,7 @@ const roomAuthSchema = new mongoose.Schema({
   users: [
     {
       username: String,
-      roomId: {
+      userroomId: {
         type: String,
         unique: true, // Ensures roomId values are unique
       },
