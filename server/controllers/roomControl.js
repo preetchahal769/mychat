@@ -2,7 +2,7 @@
 
 import room from "../models/roomSchema.js";
 import userAuth from "../models/userAuthSchema.js"
-
+import { v4 as uuidv4 } from "uuid"; // Import the UUID library
 // defining a protocol for creating a new room
 
 export const createRoom = async (req, res) => {
@@ -53,20 +53,22 @@ export const createRoom = async (req, res) => {
             const count = await room.countDocuments();
             console.log('count : ',count);
             // creastea new room id 
-            const userroomId = count +54600
-            const roomId = 7576500 + count + 1 ;
-            const sroomId = roomId.toString();
-            console.log(sroomId)
+            // const userroomId = count +54600
+            // const roomId = 7576500 + count + 1 ;
+            // const sroomId = roomId.toString();
+            // console.log(sroomId)
             // first user details 
+            const roomID = uuidv4();
+            const userRoomID = uuidv4();
             const adminUser = {
               username : username ,
-              userroomId:userroomId,
+             userroomId:userRoomID,
               position:"admin"
             }
             // new room details 
             const newRoom = new room({
               roomname : roomName,
-              roomId:sroomId,
+              roomID : roomID,
               description : roomdesp,
               admin : username,
               users :[adminUser],
