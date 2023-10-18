@@ -6,19 +6,9 @@ import { v4 as uuidv4 } from "uuid"; // Import the UUID library
 // defining a protocol for creating a new room
 
 export const createRoom = async (req, res) => {
-  console.log('api called')
+
   // function to create room document
-  const countDocuments = () => {
-    return new Promise((resolve, reject) => {
-      room.countDocuments({}, (err, count) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(count);
-        }
-      });
-    });
-  };
+ 
   try {
     const { roomName, roomdesp, username ,message } = req.body;
     
@@ -52,12 +42,7 @@ export const createRoom = async (req, res) => {
             // count the no of documentin collection to crate a id for room 
             const count = await room.countDocuments();
             console.log('count : ',count);
-            // creastea new room id 
-            // const userroomId = count +54600
-            // const roomId = 7576500 + count + 1 ;
-            // const sroomId = roomId.toString();
-            // console.log(sroomId)
-            // first user details 
+         
             const roomID = uuidv4();
             const userRoomID = uuidv4();
             const adminUser = {
@@ -169,15 +154,16 @@ export const joinRoom = async (req, res) => {
       if (!userExists) {
         res.status(409).json("user doesn,t exist");
       } else {
+        const userRoomID = uuidv4();
         const newuser = {
           userName: username,
-          roomId: `000567` + roomId,
+          roomId: userRoomID,
           position: `member`,
         };
         // db query to and new user in array
         room.findByIdAndUpdate(
           roomName,
-          { $push: { users: newUserDetails } },
+          { $push: { users: newuser } },
           { new: true }, // This option returns the updated document
           (err, updatedRoom) => {
             if (err) {
@@ -198,3 +184,27 @@ export const joinRoom = async (req, res) => {
     res.status(500).json("Error while joining the room");
   }
 };
+// api for get all room list 
+export const allRooms = async(req , res)=>{
+  try {
+    console.log('api called')
+    const projection = {
+      roomname: 1, 
+      description: 1, 
+      roomID: 1 
+    };
+  
+    const rooms = await room.find({}, projection).exec();
+
+    if (!rooms || rooms.length === 0) {
+      console.log('No rooms found');
+      return res.status(404).json('No rooms found');
+    }else{
+
+    console.log('Rooms with selected properties:', rooms);
+    return res.status(200).json(rooms);}
+  } catch (error) {
+    console.log('Error in finding document',error);
+    res.status(500).json("server error");
+  }
+}
