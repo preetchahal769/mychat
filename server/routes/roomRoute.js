@@ -1,7 +1,7 @@
 // route setup for user authentication (signup and login)
 
 import express from "express";
-import { createRoom , removeRoom , userList } from "../controllers/roomControl.js";
+import { createRoom , removeRoom , userList,allRooms } from "../controllers/roomControl.js";
 
 const router = express.Router();
 
@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post("/newroom", createRoom);
 router.post("/deleteroom", removeRoom);
-// router.post("/joinroom", joinRoom);
+router.get("/allroom", allRooms);
 router.get("/userlist", userList);
 
 
