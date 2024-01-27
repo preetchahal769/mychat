@@ -69,8 +69,8 @@ export const signup = async (req, res) => {
                   } else {
                     // hashing cnfpassword if both password and cnfpassword match
 
-                    const salt = brcypt.genSaltSync(10);
-                    const hashedPassword = brcypt.hashSync(cnfpassword, salt);
+                      const salt = brcypt.genSaltSync(10);
+                      const hashedPassword = brcypt.hashSync(cnfpassword, salt);
 
                     // creating a new user document
 
@@ -188,6 +188,7 @@ export const verifyToken = async (req, res) => {
     // accessing token from cookies in local storage
 
     const token = req.cookies.access_token;
+    console.log(req.cookies);
 
     // verifying token accessed from cookies
 
