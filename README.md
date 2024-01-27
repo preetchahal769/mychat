@@ -9,8 +9,8 @@ A Chat Application built in collaboration using MERN Technologies. It offers cha
     <img src="https://github.com/avinasdube.png?size=50" style="border-radius: 50%; width: 50px; height: 50px;">
   </a>
 
-  <a href="https://github.com/Cyberrayon04846">
-    <img src="https://github.com/Cyberrayon04846.png?size=50" style="border-radius: 50%; width: 50px; height: 50px;">
+  <a href="https://github.com/preetchahal769">
+    <img src="https://github.com/preetchahal769.png?size=50" style="border-radius: 50%; width: 50px; height: 50px;">
   </a>
 </div>
 
